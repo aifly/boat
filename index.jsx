@@ -26,11 +26,16 @@ export class App extends Component {
 			name:'',
 			tel:'',
 			score:0,
-			myAnswer:[]
+			myAnswer:[],
 			
 		}
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
+		this.loadingImg = [
+			'./assets/images/index.jpg',
+			'./assets/images/bg.jpg',
+
+		]
 	}
 	render() {
 		
@@ -305,61 +310,24 @@ export class App extends Component {
 		 
 		
 		var s = this;
+
+		s.loading(this.loadingImg,(scale)=>{
+			s.setState({
+				progress:(scale*100|0)+'%'
+			})
+		},()=>{
+			s.setState({
+				showLoading:false
+			});
+			
+		});
 		$.getJSON('./assets/js/data.js',(data)=>{
 
 
-			s.loading(data.loadingImg,(scale)=>{
-				s.setState({
-					progress:(scale*100|0)+'%'
-				})
-			},()=>{
-				s.setState({
-					showLoading:false
-				});
-
-			});
 
 
-			this.state.indexBg = data.indexBg;
-			this.state.title = data.title;
-			this.state.theme = data.theme;
-			this.state.duration = data.duration;
-			this.state.question = data.question;
-			this.forceUpdate(()=>{
-				obserable.trigger({
-					type:'setQuestionScroll'
-				});
-				
-			});
-
-			obserable.on('fillAnswer',(data)=>{
-				this.state.myAnswer.push(data);
-				this.forceUpdate();
-			});
-
-		
-
-			obserable.on('countdown',()=>{
-				if(this.state.duration <=0){
-					clearInterval(this.timer);
-				}
-				this.timer = setInterval(()=>{
-					this.setState({
-						duration:this.state.duration - 1
-					});
-				},1000);
-			});
-
-			obserable.on('clearCountdown',()=>{
-				clearInterval(this.timer);
-			});
-
-
-
-			obserable.on('clearMyAnswer',(data)=>{
-				this.state.myAnswer.length = 0;
-				this.forceUpdate();
-			});
+			
+			
 			
 			/*$.ajax({
 				url:'http://api.zmiti.com/v2/weixin/getwxuserinfo/',
