@@ -24,18 +24,44 @@ class ZmitiIndexApp extends Component {
 			height:this.state.imgH,
 			WebkitTransform:'translate3d(0,'+this.state.transformY+'px,0)'
 		}
-		if(this.state.imgW>0){
-			//bgStyle.marginLeft = - (this.state.imgW - this.viewW) / 2;
-		}
+		
+
 
 		return (
-			<div className={'zmiti-index-main-ui '+(this.state.hideIndex?'hide':'')}>
+			<div onTouchStart={e=>{e.preventDefault()}} className={'zmiti-index-main-ui '+(this.state.hideIndex?'hide':'')}>
 				<div
 			className='zmiti-index-bg lt-full' style={bgStyle} >
-					<img   src='./assets/images/index.jpg' ref='zmiti-index-bg'/>
+					<img src='./assets/images/bg.png' ref='zmiti-index-bg'/>
+				</div>
+				<div onTouchStart={this.boatMove.bind(this)} className="zmiti-index-container">
+				    <div className="zmiti-index-dot"></div>
+				    <div className="zmiti-index-pulse"></div>
+				</div>
+				<div className='zmiti-loong'>
+					<img src='./assets/images/long.png'/>
 				</div>
 			</div>
 		);
+	}
+
+
+	boatMove(){
+		this.lastTime = this.lastTime || new Date().getTime();
+		if(-this.state.transformY >= this.state.imgH - this.viewH){
+			return;
+		};
+		var scale = 1;
+		if(new Date().getTime() - this.lastTime>0){
+
+			scale = 2000/(new Date().getTime() - this.lastTime);
+			//console.log(500/(new Date().getTime() - this.lastTime));
+		}
+		this.setState({
+			transformY:this.state.transformY-scale
+		})
+
+		this.lastTime =  new Date().getTime();
+		return false;
 	}
  
 
@@ -45,14 +71,7 @@ class ZmitiIndexApp extends Component {
 			imgH:this.refs['zmiti-index-bg'].offsetHeight
 		});
 
-		this.timer = setInterval(()=>{
-			if(-this.state.transformY>=this.state.imgH - this.viewH){
-				clearInterval(this.timer);
-			}
-			this.setState({
-				transformY:this.state.transformY - 1
-			});
-		},20)
+		
 	}
 }
 export default PubCom(ZmitiIndexApp);

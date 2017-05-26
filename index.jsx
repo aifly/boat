@@ -32,8 +32,7 @@ export class App extends Component {
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
 		this.loadingImg = [
-			'./assets/images/index.jpg',
-			'./assets/images/bg.jpg',
+			'./assets/images/bg.png',
 
 		]
 	}
