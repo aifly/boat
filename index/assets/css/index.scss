@@ -10,10 +10,8 @@
   
   .zmiti-index-bg{
      width: 100%;
-     top: 50%;
+     top: 0;     
      
-     border:1px solid #f00;
-     img{height:100%;width:auto;@include transform(rotate(90deg));}
      @include transformOrigin(center center);
 
      @include transform(rotate(0deg));
