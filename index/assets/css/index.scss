@@ -1,5 +1,5 @@
 ﻿@import "../../../assets/css/base.scss";
-
+$viewW : 640px;
 .zmiti-index-main-ui{
   
 
@@ -15,100 +15,142 @@
      @include transformOrigin(center center);
 
      @include transform(rotate(0deg));
+
+
+     .zmiti-place-intro{
+     	@include pos(a);
+     	width: 100%;
+     	background: #fff;
+     	@include transition(1s opacity 0.2s);
+     	right: -80px;
+     	height: 250px;
+     	padding: 30px 20px;
+     	top: 3000px;
+     	@include br(10px);
+     	@include transform(rotate(90deg));
+     	z-index: 1000;
+     	@include displayBox(horizontal);
+		aside{
+			margin: 0 10px;
+			text-align: center;
+			-webkit-box-flex:1;
+			width: 50%;
+			&:first-of-type{
+				header{
+					color:#f90;
+					font-size: 30px;
+					@include pos(r);
+					margin: 0 auto 10px;
+					&:before,&:after{
+						content:'';
+						@include pos(a);
+						$size:10px;
+						width: $size;
+						height: $size;
+						@include br(50%);
+						background: #f90;
+						margin-left: -16px;
+						margin-top: 16px;
+					}
+					&:after{
+						margin-left: 8px;
+					}
+				}
+			}
+			&:last-of-type{
+				@include displayBox(horizontal);
+				text-align: left;;
+				font-size: 24px;
+			}
+		}
+     }
   }
 
   .zmiti-loong{
   	@include pos(f);
-  	top: 100px;
-  	left: 40px;;
-  	width: 100px;
+  	top: 50%;
+  	margin-top: -272px;
+  	left: -80px;;
+  	width: 300px;
+  	@include transform(translate3d(0,-60vh,0));
+  	@include transition_transform(1s);
+  	&.active{
+  		@include transform(translate3d(0,0,0));
+  	}
   }
-   
-  
 
+  .zmiti-index-logo{
+  	@include pos(f);
+  	right: 100px;
+  	top: 50%;
+  	margin-top: -376px;
+  	@include transition_transform(1s);
+  	&.active{
+  		@include transform(translate3d(120px,-100px,0) scale(.3));
+  	}
+  	@include transformOrigin(top);
+  }
 
+  .zmiti-index-begin-btn{
+  	 @include pos(f);
+  	 z-index: 10;
+  	 background: #f7941d;
+  	 color:#fff;
+  	 padding: 16px 50px;
+  	 font-size: 30px;
+  	 top: 50%;
+    margin-left: 20px;
+  	@include transform( translate3d($viewW/3,-50%,0) rotate(90deg));
+  	@include br(6px);
+  	-webkit-transition:opacity 1s 1s, -webkit-transform .2s;
+  	&.active{
+  		@include transform( translate3d($viewW/3,-50%,0) rotate(90deg) scale(.97));
+  	}
 
-.zmiti-index-container {
-	@include pos(f);
-	bottom:40px;
-	left:40px;
-	z-index:10;
-	background:#fff;
-	@include br(50%);
-	$size:160px;
-	width: $size;
-	height: $size;
-}
-/* 保持大小不变的小圆圈  */
-.zmiti-index-dot {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	left:0;
-	top:0;
-	@include br(50%);
-	z-index: 2;
-}
-/* 产生动画（向外扩散变大）的圆圈  */
-.zmiti-index-pulse {
-	position: absolute;
-	width: 160%; 
-	height: 160%;
-	left:-30%;
-	top:-30%;
-	box-sizing:border-box;
-	background:rgba(0,0,0,.6);
-	@include br(50%);
-	z-index: 1;
-	opacity: 0;
-	@include animation(warn 2s ease-out infinite);
-}
-  
- 
-}
+  	opacity:0;
 
+  	&.show{
+  		opacity:1;
+  		
+  	}
+  }
 
-  @keyframes warn {
-	0% {
-		transform: scale(0);
-		opacity: 0.0;
+  .zmiti-index-text{
+  	@include pos(f);
+  	z-index: 100;
+  	color:#0a6639;
+  	font-size: 30px;
+  	top: 50%;
+  	opacity:0;
+
+  	&.active{
+  		opacity:1;
+  		@include transition(1s 1s);
+  	}
+
+  	&.hide{
+  		@include transform( translate3d(20%,-$viewW + 200,0) rotate(90deg) scale(.5));
+  		opacity:0;
+  		@include transition(2s .5s);
+
+  	}
+
+  	margin-left: 20px;
+  	width: $viewW;
+  	
+  	@include transform( translate3d(10%,-50%,0) rotate(90deg));
+  }
+	.zmiti-index-container {
+		@include pos(f);
+		bottom:40px;
+		left:40px;
+		z-index:10;
+		background:#fff;
+		@include br(50%);
+		$size:160px;
+		width: $size;
+		height: $size;
+
 	}
-	25% {
-		transform: scale(0);
-		opacity: 0.1;
-	}
-	50% {
-		transform: scale(0.1);
-		opacity: 0.3;
-	}
-	75% {
-		transform: scale(0.5);
-		opacity: 0.5;
-	}
-	100% {
-		transform: scale(1);
-		opacity: 0.0;
-	}
-}
-@-webkit-keyframes warn {
-	0% {
-		-webkit-transform: scale(0);
-		opacity: 0.0;
-	}
-	25% {
-		-webkit-transform: scale(0);
-		opacity: 0.1;
-	}
-	50% {
-		-webkit-transform: scale(0.1);
-		opacity: 0.3;
-	}
-	75% {
-		-webkit-transform: scale(0.5);
-		opacity: 0.5;
-	}
-	100% {
-		-webkit-transform: scale(1);
-		opacity: 0.0;
-	}
+
 }

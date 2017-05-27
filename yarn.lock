@@ -31,6 +31,10 @@ align-text@^0.1.1, align-text@^0.1.3:
     longest "^1.0.1"
     repeat-string "^1.5.2"
 
+alloytouch@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/alloytouch/-/alloytouch-0.2.4.tgz#28e1eaedb734c781b96dec33ff8e8eef06fb60d6"
+
 alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"

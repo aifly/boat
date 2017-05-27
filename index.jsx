@@ -23,16 +23,13 @@ export class App extends Component {
 			progress:'0%',
 			loadingImg:[],
 			showLoading:true,
-			name:'',
-			tel:'',
-			score:0,
-			myAnswer:[],
+			
 			
 		}
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
 		this.loadingImg = [
-			'./assets/images/bg.png',
+			'./assets/images/bg1.png',
 
 		]
 	}
@@ -46,15 +43,12 @@ export class App extends Component {
 		var data ={
 			obserable,
 			IScroll,
-			theme:this.state.theme,
-			title:this.state.title,
-			duration:this.state.duration,
-			question:this.state.question,
-			myAnswer:this.state.myAnswer,
 		}
 
 		return (
 			<div className='zmiti-main-ui' style={mainStyle}>
+				<audio ref='bgsound' autoPlay src='./assets/music/bgsound.mp3'></audio>
+				<audio ref='tap' src='./assets/music/tap.mp3'></audio>
 				{this.state.showLoading && <ZmitiLoadingApp progress={this.state.progress}></ZmitiLoadingApp>}
 				{!this.state.showLoading && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
 			</div>
@@ -320,6 +314,9 @@ export class App extends Component {
 			});
 			
 		});
+
+		s.wxConfig('带你到全国各地赛龙舟','赛龙舟是中国民间传统水上体育娱乐项目，已有两千多年历史，很多地方在端午节都有赛龙舟的传统。','http://h5.zmiti.com/public/boat/assets/images/300.jpg');
+
 		$.getJSON('./assets/js/data.js',(data)=>{
 
 
@@ -464,15 +461,15 @@ export class App extends Component {
 
 
 		$(document).one('touchstart',()=>{
-			/*this.refs['talkAudio'].pause();
-			this.refs['talkAudio'].muted = true;
-			this.refs['talkAudio'].play();
+			this.refs['bgsound'].pause();
+			this.refs['bgsound'].muted = true;
+			this.refs['bgsound'].play();
 			setTimeout(()=>{
-				this.refs['talkAudio'].muted = false;
+				this.refs['bgsound'].muted = false;
 			},500);
-			if(this.refs['audio'] && this.refs['audio'].paused){
-				this.refs['audio'].play();
-			};*/
+			if(this.refs['tap'] && this.refs['tap'].paused){
+				this.refs['tap'].play();
+			};
 		})
 		
 	}
