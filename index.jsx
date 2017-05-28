@@ -3,13 +3,10 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import $ from 'jquery';
 injectTapEventPlugin();
-import IScroll from 'iscroll';
 import './assets/css/index.css';
 
 import ZmitiLoadingApp from './loading/index.jsx';
 import ZmitiIndexApp from './index/index.jsx';
-import ZmitiContentApp from './content/index.jsx';
-import ZmitiResultApp from './result/index.jsx';
 
 import Obserable from './components/public/obserable';
 var obserable = new Obserable();
@@ -29,8 +26,17 @@ export class App extends Component {
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
 		this.loadingImg = [
-			'./assets/images/bg1.png',
-
+			'./assets/images/bg2.png',
+			'./assets/images/300.jpg',
+			'./assets/images/bj.png',
+			'./assets/images/hn.png',
+			'./assets/images/nx.png',
+			'./assets/images/zj.png',
+			'./assets/images/fj.png',
+			'./assets/images/gd.png',
+			'./assets/images/logo.png',
+			'./assets/images/long.png',
+			'./assets/images/long.gif',
 		]
 	}
 	render() {
@@ -42,13 +48,12 @@ export class App extends Component {
 
 		var data ={
 			obserable,
-			IScroll,
 		}
 
 		return (
 			<div className='zmiti-main-ui' style={mainStyle}>
-				<audio ref='bgsound' autoPlay src='./assets/music/bgsound.mp3'></audio>
-				<audio ref='tap' src='./assets/music/tap.mp3'></audio>
+				<audio ref='bgsound' autoPlay src='./assets/music/bgsound.mp3' loop></audio>
+				
 				{this.state.showLoading && <ZmitiLoadingApp progress={this.state.progress}></ZmitiLoadingApp>}
 				{!this.state.showLoading && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
 			</div>
@@ -315,7 +320,7 @@ export class App extends Component {
 			
 		});
 
-		s.wxConfig('带你到全国各地赛龙舟','赛龙舟是中国民间传统水上体育娱乐项目，已有两千多年历史，很多地方在端午节都有赛龙舟的传统。','http://h5.zmiti.com/public/boat/assets/images/300.jpg');
+		s.wxConfig(document.title,window.desc,'http://h5.zmiti.com/public/boat/assets/images/300.jpg');
 
 		$.getJSON('./assets/js/data.js',(data)=>{
 
@@ -467,9 +472,7 @@ export class App extends Component {
 			setTimeout(()=>{
 				this.refs['bgsound'].muted = false;
 			},500);
-			if(this.refs['tap'] && this.refs['tap'].paused){
-				this.refs['tap'].play();
-			};
+			
 		})
 		
 	}

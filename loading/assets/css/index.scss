@@ -9,6 +9,17 @@
   z-index:  100;
   width:640px;
   height: 100%;
+
+  .zmiti-screen{
+    @include pos(a);
+    top: 20%;
+    width: 200px;
+    left: 50%;
+    color:#fff;
+    text-align: center;
+    font-size: 30px;
+    margin-left: -100px;
+  }
    a{
       text-align: center;
       line-height: 180px;

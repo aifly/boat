@@ -25,6 +25,11 @@ class ZmitiLoadingApp extends Component {
 				        <div className="line3"></div>
 				        <div className='zmiti-progress'>{this.props.progress}</div>
 				    </a>
+
+				    {window.showScreen && <div className='zmiti-screen'>
+				    				    	<img src='./assets/images/screen.png'/>
+				    				    	请横屏浏览
+				    				    </div>}
 			</div>
 		);
 	}
