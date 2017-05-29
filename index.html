@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=640,user-scalable=no">
 	<meta name="format-detection" content="telephone=no,email=no" />
-	<title>带你到全国各地赛龙舟</title>
+	<title>我们去全国各地赛龙舟</title>
 	<script>
 		document.addEventListener("touchmove",function(e){e.preventDefault();});
 	</script>
@@ -40,19 +40,23 @@
 				document.body.appendChild(script);
 			}
 
-			var desc ='赛龙舟是中国民间传统水上体育娱乐项目，已有两千多年历史，很多地方在端午节都有赛龙舟的传统。';
+			var desc ='赛龙舟是中国民间传统水上体育娱乐项目，已有两千多年历史，很多地方在端午节都有赛龙舟的习俗。';
+
+			var speed = 3;
 
 			var chupinArr = [
-				'新华社海南分社 新华社福建分社 新华社广东分社',
-				'新华社宁夏分社 新华社新媒体中心联合出品'
+				//'新华社海南分社 新华社福建分社 新华社广东分社',
+				'新华社新媒体中心出品'
 			];
 
-			var footerText = '从大江南北到塞上西域，龙舟文化的发展不仅展现了我国传统悠久的历史文化继承，更体现出人们团结奋进的集体主义精神。'
+			var shareImg = 'http://h5.zmiti.com/public/boat1/assets/images/300.jpg';
+
+			var footerText = '从大江南北到塞上西域，龙舟文化的发展不仅展现了我国传统历史文化继承，更体现出人们拼搏向上、奋勇争先的精神风貌。'
 			var textArr = [
 				['海南','澄迈是中国龙舟之乡，长久以来的龙舟竞渡，已成深受当地广大人民群众喜爱、形成传统的文化体育娱乐活动。','./assets/images/hn.png'],
-				['广东','每年端午期间，看龙舟是广州以及珠三角周边城市的必备节目。既有龙船景这样传统气息浓郁的村落间互动拜访，也有官方组织的正规龙舟比赛。','./assets/images/gd.png'],
+				['广东','每年端午期间，赛龙舟是广州以及珠三角周边城市的必备节目。既有龙船景这样传统气息浓郁的村落间互动拜访，也有官方组织的正规龙舟比赛。','./assets/images/gd.png'],
 				['福建','福建一千多年前民间就盛行龙舟竞渡。竞渡活动在端午节前后，一般从农历五月初一开始至初五达到高潮。龙舟的船、桨、舵均用杉木制作，颇为考究。','./assets/images/fj.png'],
-				['浙江','江浙地区划龙舟，兼有纪念当地出生的近代女民主革命家秋瑾的意义。夜龙船上，张灯结彩，来往穿梭，水上水下，情景动人，别具情趣。','./assets/images/zj.png'],
+				['浙江','女民主革命家秋瑾端午这一天在绍兴英勇就义，在浙江划龙舟，兼有纪念秋瑾的意义。夜龙船上，张灯结彩，来往穿梭，水上水下，情景动人，别具情趣。','./assets/images/zj.png'],
 				['北京','龙舟比赛不仅仅是端午节的专设项目，也是群众体育、全民健身的常设项目。北京端午龙舟大赛，让流行于我国南方的传统民间体育项目在北京落地生根。','./assets/images/bj.png'],
 				['宁夏','银川市２００９年首次将端午赛龙舟风俗“移植”到本地。经过几年赛事的磨砺，江南赛龙舟风俗已经在宁夏扎根。','./assets/images/nx.png']
 			];
@@ -64,10 +68,10 @@
 
 		<script src='http://res.wx.qq.com/open/js/jweixin-1.2.0.js'></script>
 
-		<script src='http://localhost:3006/index.js' onError='onError()'></script>
+		<script src='./assets/js/index.js'></script>
 		<!-- <script src='http://res.wx.qq.com/open/js/jweixin-1.2.0.js'></script> -->
 		<!--
-		<script src='./assets/js/index.js'></script>
+		<script src='http://localhost:3006/index.js' onError='onError()'></script>
 		 
 		  -->
 	

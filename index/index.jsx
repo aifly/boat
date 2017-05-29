@@ -3,23 +3,28 @@ import {PubCom} from '../components/public/pub.jsx';
 import './assets/css/index.css';
 import $ from 'jquery';
 
-import AlloyTouch from 'alloytouch';
-import Transform from 'alloytouch/transformjs/transform';
+//import AlloyTouch from 'alloytouch';
+//import Transform from 'alloytouch/transformjs/transform';
 class ZmitiIndexApp extends Component {
 	constructor(props) {
 		super(props);
 		this.state={
 			beginTest:false,
 			imgH:0,
-			transformY:[0],
+			transformY:[0,0,0,0,0,0,0],
 			iNow:-1,
 			opacity:[1],
 			isMove:true,
 			rotate:23,
+			top:0,
 			scaleLogo:false
 		};
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
+		this.rotate =[];
+		window.textArr.map((item,i)=>{
+			this.rotate.push(Math.random()*35|0);
+		})
 	}
 
 	render() {
@@ -29,7 +34,8 @@ class ZmitiIndexApp extends Component {
 
 		var bgStyle = {
 			height:this.state.imgH,
-			position:'relative'
+			position:'relative',
+			WebkitTransform:'translate3d(0,'+this.state.top+'px,0)'
 		}
 		var className = '';
 		if(this.state.showLong){
@@ -68,11 +74,19 @@ class ZmitiIndexApp extends Component {
 									</div>
 							})}
 
+							<div className='zmiti-xh-logo'>
+								<img src='./assets/images/zmiti.png'/>
+							</div>
+
+							<div onTouchTap={this.refresh.bind(this)} className='zmiti-refresh'>
+								<img src='./assets/images/refresh.png'/>
+							</div>
+
 
 							<div>
 								{window.textArr.map((item,i)=>{
 
-								return <div key={i} className='zmiti-place-pic' style={{top:(i+1)*this.state.imgH/8 + this.viewH - 400,opacity:1}}>
+								return <div key={i} className='zmiti-place-pic' style={{top:(i+1)*this.state.imgH/8 + this.viewH - 400,opacity:1,WebkitTransform:'translate3d(0,'+(this.state.transformY[i])+'px,0) rotate('+(this.rotate[i])+'deg)'}}>
 											<img src={item[2]}/>
 										</div>
 								})}
@@ -103,17 +117,44 @@ class ZmitiIndexApp extends Component {
 				<div className={'zmiti-index-text  '+ (this.state.scaleLogo?'active':'')+(this.state.beginGame?' hide':'')}>
 					<span>智</span><span>媒</span>
 					{this.state.scaleLogo && window.desc.split('').map((item,i)=>{
-						return <span key={i} style={{WebkitAnimationDelay:(i+2)*105+'ms'}} className='bounceInDown'>{item}</span>
+						return <span key={i} style={{WebkitAnimationDelay:(i+2)*105+'ms'}} className={this.state.scaleLogo?'bounceInDown':''}>{item}</span>
 					})}
 				</div>
 				<div onTouchTap={this.beginGame.bind(this)} className={'zmiti-index-begin-btn '+(this.state.tap?'active':'') + (this.state.showStartBtn?' show':'')}>开始</div>
 				<div className={'zmiti-loong '+ className}>
 					<img src={'./assets/images/long.'+(this.state.isMove?'gif':'png')}/>
 				</div>
-				{!this.state.longDone && this.state.beginGame && <span className='zmiti-info'><img src='./assets/images/info.png'/></span>}
-				<audio ref='tap' src='./assets/music/tap.mp3' autoPlay loop></audio>
+				{!this.state.longDone && false &&  this.state.beginGame && <span className='zmiti-info'><img src='./assets/images/info.png'/></span>}
+				<audio ref='tap' src='./assets/music/tap.mp3' loop></audio>
+				<audio ref='bgsound' autoPlay src='./assets/music/bgsound.mp3' loop></audio>
 			</div>
 		);
+	}
+
+
+	refresh(){
+		this.setState({
+			iNow:-1,
+			isMove:true,
+			top:0,
+			scaleLogo:true,
+			longDone:false,
+			beginGame:false,
+			showStartBtn:false
+		});
+
+		this.isStart = false;
+
+		setTimeout(()=>{
+			this.setState({
+				scaleLogo:true
+			});
+			setTimeout(()=>{
+				this.setState({
+					showStartBtn:true
+				})
+			},4000)
+		},2000);
 	}
 
 
@@ -125,6 +166,9 @@ class ZmitiIndexApp extends Component {
 			isMove:true
 
 		});
+
+		this.refs['tap'].play();
+		this.refs['bgsound'].pause();
 		setTimeout(()=>{
 
 			this.setState({
@@ -132,7 +176,57 @@ class ZmitiIndexApp extends Component {
 				showStartBtn:false,
 				showLong:true
 			});
-			Transform(this.refs['zmiti-index-bg-C'],true);
+
+			
+
+			this.isStart = true;
+
+			var render = ()=>{
+				var iNow = - ((s.state.top+340) / s.singleH |0) ;
+				var top = s.state.top - window.speed;
+				top <= this.viewH - this.state.imgH &&(top = this.viewH - this.state.imgH );
+				s.state.top =top ;
+				s.state.iNow = iNow;
+				var y =  top % s.singleH;
+				if(top < - this.singleH){
+					//s.state.transformY[iNow-1] = y / 4;
+				}
+
+
+
+				s.forceUpdate();
+				if(-s.state.top % this.singleH <= window.speed && -s.state.top / this.singleH>1 ){
+					this.isStart = false;
+					this.setState({
+						isMove:false
+					});
+
+					this.refs['tap'].pause();
+					this.refs['bgsound'].play();
+
+					if(iNow >= window.textArr.length ){
+						s.setState({
+							longDone:true
+						})
+					}
+
+					setTimeout(()=>{
+						this.isStart = true;
+						this.setState({
+							isMove:true
+						});
+						this.refs['tap'].play();
+						this.refs['bgsound'].pause();
+						render();						
+						
+					},3000)
+				}
+				
+				this.isStart && webkitRequestAnimationFrame(render);
+			};
+
+			webkitRequestAnimationFrame(render);
+			/*Transform(this.refs['zmiti-index-bg-C'],true);
 			this.touch = new AlloyTouch({
 				touch:s.refs['zmiti-index-main-ui'],//反馈触摸的dom
 				target: s.refs['zmiti-index-bg-C'], //运动的对象
@@ -200,7 +294,7 @@ class ZmitiIndexApp extends Component {
 			});
 			this.touch.to( - this.singleH ,5000,function (x) {
 			  return x;
-			});
+			});*/
 
 
 		},2000)
@@ -209,6 +303,16 @@ class ZmitiIndexApp extends Component {
 
 	componentDidMount() {
 
+
+		$(document).one('touchstart',()=>{
+			this.refs['bgsound'].pause();
+			this.refs['bgsound'].muted = true;
+			this.refs['bgsound'].play();
+			setTimeout(()=>{
+				this.refs['bgsound'].muted = false;
+			},500);
+			
+		})
 		this.iNow = 1;//
 
 

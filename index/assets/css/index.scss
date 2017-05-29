@@ -30,8 +30,9 @@ $viewW : 640px;
 
          @include transformOrigin(left bottom);
          @include pos(a);
-         &:nth-of-type(3){
-            @include transform(rotate(35deg));                   
+         &:nth-of-type(2){
+            
+            -webkit-transform:rotate(35deg) !important;
          }
       }
 
@@ -171,10 +172,35 @@ $viewW : 640px;
     @include pos(a);
     bottom:50vh;
     color:#fff;
-    left: 0;
+    left: 30px;
     font-size: 28px;
     text-align: center;
     @include transform(translate3d(-40%,30px,0) rotate(90deg)); 
+  }
+
+  .zmiti-xh-logo{
+  	@include pos(a);
+    bottom:50vh;
+    color:#fff;
+    width: 100px;
+    height: 100px;
+    left:40%;
+    margin-top: -50px;
+    margin-left: -50px;
+  }
+  .zmiti-refresh{
+  	width: 70px;
+  	height: 70px;
+  	@include pos(a);
+  	right: 40px;
+  	bottom: 40px;
+  	padding: 10px 10px 20px 10px;
+  	box-sizing:border-box;
+  	background: #f7941d;
+  	@include br(50%);
+  	@include transform(rotate(90deg));
+  	img{vertical-align:top;@include pos(a);width: 40px;top: 8px;left: 15px;}
+
   }
 
   .zmiti-index-logo{

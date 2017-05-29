@@ -52,7 +52,7 @@ export class App extends Component {
 
 		return (
 			<div className='zmiti-main-ui' style={mainStyle}>
-				<audio ref='bgsound' autoPlay src='./assets/music/bgsound.mp3' loop></audio>
+				
 				
 				{this.state.showLoading && <ZmitiLoadingApp progress={this.state.progress}></ZmitiLoadingApp>}
 				{!this.state.showLoading && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
@@ -320,17 +320,12 @@ export class App extends Component {
 			
 		});
 
-		s.wxConfig(document.title,window.desc,'http://h5.zmiti.com/public/boat/assets/images/300.jpg');
 
-		$.getJSON('./assets/js/data.js',(data)=>{
+		s.wxConfig(document.title,window.desc,window.shareImg);
 
+		/*$.getJSON('./assets/js/data.js',(data)=>{
 
-
-
-			
-			
-			
-			/*$.ajax({
+			$.ajax({
 				url:'http://api.zmiti.com/v2/weixin/getwxuserinfo/',
 				data:{
 					code:s.getQueryString('code'),
@@ -457,23 +452,15 @@ export class App extends Component {
 
 			s.headimgurl = localStorage.getItem('headimgurl');
 		
-			s.forceUpdate();*/
+			s.forceUpdate();
 			
 
 			
-		});
+		});*/
 
 
 
-		$(document).one('touchstart',()=>{
-			this.refs['bgsound'].pause();
-			this.refs['bgsound'].muted = true;
-			this.refs['bgsound'].play();
-			setTimeout(()=>{
-				this.refs['bgsound'].muted = false;
-			},500);
-			
-		})
+		
 		
 	}
 
